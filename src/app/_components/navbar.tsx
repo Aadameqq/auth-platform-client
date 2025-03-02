@@ -12,6 +12,11 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./navbar.module.css";
 
+const links: { title: string; url: string }[] = [
+  { title: "Problemset", url: "#" },
+  { title: "Contests", url: "#" },
+];
+
 export default function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -24,12 +29,11 @@ export default function Navbar() {
             <Title order={3} mr={8}>
               Contest App
             </Title>
-            <a href="#" className={classes.link}>
-              Problemset
-            </a>
-            <a href="#" className={classes.link}>
-              Contests
-            </a>
+            {links.map((link) => (
+              <a key={link.title} href={link.url} className={classes.link}>
+                {link.title}
+              </a>
+            ))}
           </Group>
           <Group visibleFrom="sm">
             <Button variant="default">Log in</Button>
@@ -55,12 +59,11 @@ export default function Navbar() {
         <ScrollArea h="calc(100vh - 80px" mx="-md">
           <Divider my="sm" />
 
-          <a href="#" className={classes.link}>
-            Problemset
-          </a>
-          <a href="#" className={classes.link}>
-            Contests
-          </a>
+          {links.map((link) => (
+            <a key={link.title} href={link.url} className={classes.link}>
+              {link.title}
+            </a>
+          ))}
 
           <Divider my="sm" />
 
