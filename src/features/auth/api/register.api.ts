@@ -13,5 +13,9 @@ export const register = async (input: RegisterInput) => {
         body: JSON.stringify(input),
     });
 
+    if (!response.ok) {
+        throw response;
+    }
+
     return response.json();
 };

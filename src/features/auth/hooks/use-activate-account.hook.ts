@@ -10,8 +10,9 @@ export function useActivateAccount() {
         },
     });
 
-    const handleSubmit = async (values: FormInput) => {
+    const handleSubmit = (callback: () => void) => async (values: FormInput) => {
         await mutateAsync(values);
+        callback();
     };
 
     return {handleSubmit, isPending, isError};
