@@ -1,23 +1,27 @@
 "use client";
 
 import {
-    Paper,
-    Group,
-    Divider,
-    Stack,
-    TextInput,
-    PasswordInput,
-    Checkbox,
     Anchor,
     Button,
-    Text,
+    Checkbox,
     Container,
+    Divider,
+    Group,
+    Paper,
+    PasswordInput,
+    Stack,
+    Text,
+    TextInput,
 } from "@mantine/core";
 import React from "react";
 import {useRegisterForm} from "../hooks/use-register-form.hook";
 import {useRegister} from "../hooks/use-register.hook";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
+import {accountActivationPath} from "@/features/auth/pages/account-activation.page";
+import {loginPath} from "@/features/auth/pages/login.page";
+
+export const registerPath = "register";
 
 export function RegisterPage() {
     const {form} = useRegisterForm();
@@ -34,7 +38,7 @@ export function RegisterPage() {
 
                 <Divider my="lg"/>
 
-                <form onSubmit={form.onSubmit(handleSubmit(() => router.push("/activation")))}>
+                <form onSubmit={form.onSubmit(handleSubmit(() => router.push(accountActivationPath)))}>
                     <Stack>
                         <TextInput
                             label="Username"
@@ -77,7 +81,7 @@ export function RegisterPage() {
 
                     <Group justify="space-between" mt="xl">
                         <Anchor
-                            href={"/login"}
+                            href={loginPath}
                             component={Link}
                             type="button"
                             c="dimmed"

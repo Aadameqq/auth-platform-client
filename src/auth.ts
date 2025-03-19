@@ -11,10 +11,15 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 password: {},
             },
             authorize: async (credentials) => {
-                return await login(credentials as LoginInput);
+                try {
+                    return await login(credentials as LoginInput);
+                } catch {
+                    return null;
+                }
             },
         }),
     ],
+    pages: {},
     session: {strategy: "jwt"},
     callbacks: {
         jwt({token, account}) {
