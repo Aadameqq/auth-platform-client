@@ -1,6 +1,7 @@
 import {Button, Paper, Stack, Text} from "@mantine/core";
 import Link from "next/link";
 import React from "react";
+import {authUrls} from "@/features/auth/urls";
 
 export function ActivationSuccess() {
 
@@ -11,7 +12,7 @@ export function ActivationSuccess() {
                     Successfully activated
                 </Text>
                 <Button
-                    href={"/login"}
+                    href={authUrls.login}
                     component={Link}
                     type="button"
                     variant="primary"

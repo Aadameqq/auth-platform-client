@@ -4,7 +4,7 @@ import {FormInput} from "./use-activate-account-form.hook";
 
 export function useActivateAccount() {
     const {mutateAsync, isPending, isError} = useMutation({
-        mutationKey: ["verify-email"],
+        mutationKey: ["activate-account"],
         async mutationFn(data: FormInput) {
             return await activateAccount(data);
         },

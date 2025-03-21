@@ -4,7 +4,7 @@ import {FormInput} from "@/features/auth/hooks/use-login-form.hook";
 
 export function useLogin() {
     const {mutateAsync, isPending, isError} = useMutation({
-        mutationKey: ["register"],
+        mutationKey: ["login"],
         async mutationFn(data: FormInput) {
             const result = await signIn('credentials', {
                 ...data,

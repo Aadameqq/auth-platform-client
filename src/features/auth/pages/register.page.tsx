@@ -18,10 +18,7 @@ import {useRegisterForm} from "../hooks/use-register-form.hook";
 import {useRegister} from "../hooks/use-register.hook";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {accountActivationPath} from "@/features/auth/pages/account-activation.page";
-import {loginPath} from "@/features/auth/pages/login.page";
-
-export const registerPath = "register";
+import {authUrls} from "@/features/auth/urls";
 
 export function RegisterPage() {
     const {form} = useRegisterForm();
@@ -38,7 +35,7 @@ export function RegisterPage() {
 
                 <Divider my="lg"/>
 
-                <form onSubmit={form.onSubmit(handleSubmit(() => router.push(accountActivationPath)))}>
+                <form onSubmit={form.onSubmit(handleSubmit(() => router.push(authUrls.accountActivation)))}>
                     <Stack>
                         <TextInput
                             label="Username"
@@ -81,7 +78,7 @@ export function RegisterPage() {
 
                     <Group justify="space-between" mt="xl">
                         <Anchor
-                            href={loginPath}
+                            href={authUrls.login}
                             component={Link}
                             type="button"
                             c="dimmed"

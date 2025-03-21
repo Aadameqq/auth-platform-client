@@ -2,11 +2,9 @@
 import {Anchor, Button, Container, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput} from "@mantine/core";
 import Link from "next/link";
 import React from "react";
-import {registerPath} from "@/features/auth/pages/register.page";
 import {useLoginForm} from "@/features/auth/hooks/use-login-form.hook";
 import {useLogin} from "@/features/auth/hooks/use-login.hook";
-
-export const loginPath = "login"
+import {authUrls} from "@/features/auth/urls";
 
 export function LoginPage() {
 
@@ -51,7 +49,7 @@ export function LoginPage() {
                     </Stack>
                     <Group justify="space-between" mt="xl">
                         <Anchor
-                            href={registerPath}
+                            href={authUrls.register}
                             component={Link}
                             type="button"
                             c="dimmed"
