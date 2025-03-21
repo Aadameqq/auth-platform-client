@@ -1,14 +1,11 @@
 "use client";
-import {Box, Burger, Button, Divider, Drawer, Group, ScrollArea, Title,} from "@mantine/core";
+import {Box, Burger, Divider, Drawer, Group, ScrollArea, Title,} from "@mantine/core";
 import {useDisclosure} from "@mantine/hooks";
-import classes from "./navbar.module.css";
+import classes from "./default.header.module.css";
+import {HeaderLinks} from "@/features/layout/components/header-links.component";
+import {HeaderAuthSection} from "@/features/layout/components/header-auth-section.component";
 
-const links: { title: string; url: string }[] = [
-    {title: "Problemset", url: "#"},
-    {title: "Contests", url: "#"},
-];
-
-export default function Navbar() {
+export function Header() {
     const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] =
         useDisclosure(false);
 
@@ -20,15 +17,10 @@ export default function Navbar() {
                         <Title order={3} mr={8}>
                             Contest App
                         </Title>
-                        {links.map((link) => (
-                            <a key={link.title} href={link.url} className={classes.link}>
-                                {link.title}
-                            </a>
-                        ))}
+                        <HeaderLinks/>
                     </Group>
                     <Group visibleFrom="sm">
-                        <Button variant="default">Log in</Button>
-                        <Button>Sign up</Button>
+                        <HeaderAuthSection/>
                     </Group>
                     <Burger
                         opened={drawerOpened}
@@ -47,21 +39,12 @@ export default function Navbar() {
                 hiddenFrom="sm"
                 zIndex={1000000}
             >
-                <ScrollArea h="calc(100vh - 80px" mx="-md">
+                <ScrollArea h="calc(100vh - 80px)" mx="-md">
                     <Divider my="sm"/>
-
-                    {links.map((link) => (
-                        <a key={link.title} href={link.url} className={classes.link}>
-                            {link.title}
-                        </a>
-                    ))}
-
+                    <HeaderLinks/>
                     <Divider my="sm"/>
+                    <Group justify="center" grow pb="xl" px="md"><HeaderAuthSection/></Group>
 
-                    <Group justify="center" grow pb="xl" px="md">
-                        <Button variant="default">Log in</Button>
-                        <Button>Sign up</Button>
-                    </Group>
                 </ScrollArea>
             </Drawer>
         </Box>

@@ -2,9 +2,10 @@ import type {Metadata} from "next";
 import "./globals.css";
 import {AppShell, AppShellHeader, AppShellMain, MantineProvider} from "@mantine/core";
 import "@mantine/core/styles.css";
-import Navbar from "./_components/navbar";
 import {ReactQueryProvider} from "@/features/layout/react-query";
 import React from "react";
+import {Header} from "@/features/layout/headers/default.header";
+import {SessionProvider} from "next-auth/react";
 
 export const metadata: Metadata = {
     title: "Contest App",
@@ -20,15 +21,16 @@ export default function RootLayout({
         <html lang="en">
         <body>
         <ReactQueryProvider>
-            <MantineProvider defaultColorScheme="dark">
-                <AppShell header={{height: 60}} padding={"xl"}>
-                    <AppShellHeader>
-                        <Navbar/>
-                    </AppShellHeader>
+            <SessionProvider>
+                <MantineProvider defaultColorScheme="dark">
+                    <AppShell header={{height: 60}} padding={"xl"}>
+                        <AppShellHeader>
+                            <Header/>
+                        </AppShellHeader>
 
-                    <AppShellMain>{children}</AppShellMain>
-                </AppShell>
-            </MantineProvider>
+                        <AppShellMain>{children}</AppShellMain>
+                    </AppShell>
+                </MantineProvider></SessionProvider>
         </ReactQueryProvider>
         </body>
         </html>
