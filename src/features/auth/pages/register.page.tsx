@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
     Anchor,
@@ -12,19 +12,19 @@ import {
     Stack,
     Text,
     TextInput,
-} from "@mantine/core";
-import React from "react";
-import {useRegisterForm} from "../hooks/use-register-form.hook";
-import {useRegister} from "../hooks/use-register.hook";
-import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {authUrls} from "@/features/auth/urls";
+} from '@mantine/core';
+import React from 'react';
+import { useRegisterForm } from '../hooks/use-register-form.hook';
+import { useRegister } from '../hooks/use-register.hook';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { authUrls } from '@/features/auth/urls';
 
 export function RegisterPage() {
-    const {form} = useRegisterForm();
+    const { form } = useRegisterForm();
     const router = useRouter();
 
-    const {handleSubmit, isPending, isError} = useRegister();
+    const { handleSubmit, isPending, isError } = useRegister();
 
     return (
         <Container size="xs">
@@ -33,17 +33,23 @@ export function RegisterPage() {
                     Create Account
                 </Text>
 
-                <Divider my="lg"/>
+                <Divider my="lg" />
 
-                <form onSubmit={form.onSubmit(handleSubmit(() => router.push(authUrls.accountActivation)))}>
+                <form
+                    onSubmit={form.onSubmit(
+                        handleSubmit(() =>
+                            router.push(authUrls.accountActivation),
+                        ),
+                    )}
+                >
                     <Stack>
                         <TextInput
                             label="Username"
                             placeholder="Your username"
                             radius="md"
                             disabled={isPending}
-                            key={form.key("username")}
-                            {...form.getInputProps("username")}
+                            key={form.key('username')}
+                            {...form.getInputProps('username')}
                         />
                         <TextInput
                             required
@@ -51,8 +57,8 @@ export function RegisterPage() {
                             placeholder="hello@mantine.dev"
                             radius="md"
                             disabled={isPending}
-                            key={form.key("email")}
-                            {...form.getInputProps("email")}
+                            key={form.key('email')}
+                            {...form.getInputProps('email')}
                         />
 
                         <PasswordInput
@@ -61,18 +67,19 @@ export function RegisterPage() {
                             placeholder="Your password"
                             radius="md"
                             disabled={isPending}
-                            key={form.key("password")}
-                            {...form.getInputProps("password")}
+                            key={form.key('password')}
+                            {...form.getInputProps('password')}
                         />
 
                         <Checkbox
                             label="I accept terms and conditions"
                             disabled={isPending}
-                            key={form.key("terms")}
-                            {...form.getInputProps("terms")}
+                            key={form.key('terms')}
+                            {...form.getInputProps('terms')}
                         />
                         <Text c="red" size="sm">
-                            {isError && "Failed to create account. Try again later"}
+                            {isError &&
+                                'Failed to create account. Try again later'}
                         </Text>
                     </Stack>
 
@@ -90,7 +97,7 @@ export function RegisterPage() {
                             type="submit"
                             radius="xl"
                             loading={isPending}
-                            loaderProps={{type: "dots"}}
+                            loaderProps={{ type: 'dots' }}
                         >
                             Create Account
                         </Button>

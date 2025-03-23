@@ -1,16 +1,26 @@
 'use client';
-import {Anchor, Button, Container, Divider, Group, Paper, PasswordInput, Stack, Text, TextInput} from "@mantine/core";
-import Link from "next/link";
-import React from "react";
-import {useLoginForm} from "@/features/auth/hooks/use-login-form.hook";
-import {useLogin} from "@/features/auth/hooks/use-login.hook";
-import {authUrls} from "@/features/auth/urls";
+import {
+    Anchor,
+    Button,
+    Container,
+    Divider,
+    Group,
+    Paper,
+    PasswordInput,
+    Stack,
+    Text,
+    TextInput,
+} from '@mantine/core';
+import Link from 'next/link';
+import React from 'react';
+import { useLoginForm } from '@/features/auth/hooks/use-login-form.hook';
+import { useLogin } from '@/features/auth/hooks/use-login.hook';
+import { authUrls } from '@/features/auth/urls';
 
 export function LoginPage() {
+    const { form } = useLoginForm();
 
-    const {form} = useLoginForm();
-
-    const {handleSubmit, isPending, isError} = useLogin();
+    const { handleSubmit, isPending, isError } = useLogin();
 
     return (
         <Container size="xs">
@@ -19,10 +29,9 @@ export function LoginPage() {
                     Log In
                 </Text>
 
-                <Divider my="lg"/>
+                <Divider my="lg" />
 
-                <form onSubmit={form.onSubmit(handleSubmit(() => {
-                }))}>
+                <form onSubmit={form.onSubmit(handleSubmit(() => {}))}>
                     <Stack>
                         <TextInput
                             required
@@ -30,8 +39,8 @@ export function LoginPage() {
                             placeholder="hello@mantine.dev"
                             radius="md"
                             disabled={isPending}
-                            key={form.key("email")}
-                            {...form.getInputProps("email")}
+                            key={form.key('email')}
+                            {...form.getInputProps('email')}
                         />
 
                         <PasswordInput
@@ -40,11 +49,12 @@ export function LoginPage() {
                             placeholder="Your password"
                             radius="md"
                             disabled={isPending}
-                            key={form.key("password")}
-                            {...form.getInputProps("password")}
+                            key={form.key('password')}
+                            {...form.getInputProps('password')}
                         />
                         <Text c="red" size="sm">
-                            {isError && "Failed to create account. Try again later"}
+                            {isError &&
+                                'Failed to create account. Try again later'}
                         </Text>
                     </Stack>
                     <Group justify="space-between" mt="xl">
@@ -60,7 +70,7 @@ export function LoginPage() {
                         <Button
                             type="submit"
                             radius="xl"
-                            loaderProps={{type: "dots"}}
+                            loaderProps={{ type: 'dots' }}
                         >
                             Log In
                         </Button>

@@ -1,10 +1,10 @@
-import NextAuth, {User} from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import "next-auth/jwt";
-import {login, LoginInput} from "./features/auth/api/login.api";
-import {getCurrentAccount} from "@/features/auth/api/get-current-account";
+import NextAuth, { User } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import 'next-auth/jwt';
+import { login, LoginInput } from './features/auth/api/login.api';
+import { getCurrentAccount } from '@/features/auth/api/get-current-account';
 
-export const {handlers, signIn, signOut, auth} = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
         Credentials({
             credentials: {
@@ -26,41 +26,44 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         signOut: '/',
         error: '/',
         verifyRequest: '/',
-        newUser: '/'
+        newUser: '/',
     },
-    session: {strategy: "jwt"},
+    session: { strategy: 'jwt' },
     callbacks: {
-        jwt({token, user, account}) {
-            return {...token, accessToken: account?.access_token, ...(user ? {user} : {})};
+        jwt({ token, user, account }) {
+            return {
+                ...token,
+                accessToken: account?.access_token,
+                ...(user ? { user } : {}),
+            };
         },
-        async session({session, token}) {
-
-            const found = await getCurrentAccount({accessToken: token.user.accessToken});
+        async session({ session, token }) {
+            const found = await getCurrentAccount({
+                accessToken: token.user.accessToken,
+            });
 
             session.accessToken = token.accessToken;
-            session.account = {...token.user, ...found}
+            session.account = { ...token.user, ...found };
             return session;
         },
     },
 });
 
-declare module "next-auth" {
+declare module 'next-auth' {
     interface Session {
         accessToken?: string;
-        account: User
+        account: User;
     }
 
     interface User {
         accessToken: string;
         refreshToken: string;
     }
-
 }
 
-
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
     interface JWT {
         accessToken?: string;
-        user: User
+        user: User;
     }
 }

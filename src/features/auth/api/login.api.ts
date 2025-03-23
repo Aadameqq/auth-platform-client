@@ -4,10 +4,10 @@ export type LoginInput = {
 };
 
 export const login = async (credentials: LoginInput) => {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "auth", {
-        method: "POST",
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + 'auth', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(credentials),
     });

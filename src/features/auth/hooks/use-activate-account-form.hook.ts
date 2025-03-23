@@ -1,5 +1,5 @@
-import {useForm, zodResolver} from "@mantine/form";
-import {z} from "zod";
+import { useForm, zodResolver } from '@mantine/form';
+import { z } from 'zod';
 
 export type FormInput = {
     code: string;
@@ -11,9 +11,9 @@ const validation = z.object({
 
 export function useActivateAccountForm() {
     const form = useForm<FormInput>({
-        initialValues: {code: ""},
+        initialValues: { code: '' },
         validate: zodResolver(validation),
     });
 
-    return {form};
+    return { form };
 }
