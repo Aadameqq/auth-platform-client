@@ -2,6 +2,7 @@ import { Button } from '@mantine/core';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { authUrls } from '@/features/auth/urls';
+import { HeaderUser } from '@/features/layout/components/header-user.component';
 
 export function HeaderAuthSection() {
     const session = useSession();
@@ -19,5 +20,7 @@ export function HeaderAuthSection() {
         );
     }
 
-    return <>Hello, {session.data.account.userName}</>;
+    // return <>Hello, {session.data.account.userName}</>;
+
+    return <HeaderUser userName={session.data.account.userName} />;
 }

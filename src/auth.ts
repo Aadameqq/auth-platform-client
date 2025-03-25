@@ -3,6 +3,8 @@ import Credentials from 'next-auth/providers/credentials';
 import 'next-auth/jwt';
 import { login, LoginInput } from './features/auth/api/login.api';
 import { getCurrentAccount } from '@/features/auth/api/get-current-account';
+import { JWT } from '@auth/core/jwt';
+import { logOut } from '@/features/auth/api/logout.api';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
@@ -45,6 +47,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             session.accessToken = token.accessToken;
             session.account = { ...token.user, ...found };
             return session;
+        },
+    },
+    events: {
+        // @ts-expect-error lib passes token or session based on used strategy
+        async signOut({ token }: { token: JWT }) {
+            const { accessToken } = token;
+            await logOut({ accessToken: accessToken || '' });
         },
     },
 });
