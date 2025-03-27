@@ -1,18 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { signIn } from 'next-auth/react';
 import { FormInput } from '@/features/auth/hooks/use-login-form.hook';
+import { login } from '@/features/auth/api/login.api';
 
 export function useLogin() {
     const { mutateAsync, isPending, isError } = useMutation({
         mutationKey: ['login'],
         async mutationFn(data: FormInput) {
-            const result = await signIn('credentials', {
-                ...data,
-                redirect: false,
-            });
-            if (result!.error) {
-                throw result;
-            }
+            await login(data);
         },
     });
 

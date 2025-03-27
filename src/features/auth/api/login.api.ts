@@ -4,7 +4,7 @@ export type LoginInput = {
 };
 
 export const login = async (credentials: LoginInput) => {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + 'auth', {
+    const response = await fetch('/api/auth', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -15,6 +15,4 @@ export const login = async (credentials: LoginInput) => {
     if (!response.ok) {
         throw response;
     }
-
-    return response.json();
 };

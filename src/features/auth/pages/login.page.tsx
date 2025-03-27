@@ -11,11 +11,10 @@ import {
     Text,
     TextInput,
 } from '@mantine/core';
-import Link from 'next/link';
-import React from 'react';
-import { useLoginForm } from '@/features/auth/hooks/use-login-form.hook';
-import { useLogin } from '@/features/auth/hooks/use-login.hook';
+import { useLoginForm } from '../hooks/use-login-form.hook';
+import { useLogin } from '../hooks/use-login.hook';
 import { authUrls } from '@/features/auth/urls';
+import Link from 'next/link';
 
 export function LoginPage() {
     const { form } = useLoginForm();
