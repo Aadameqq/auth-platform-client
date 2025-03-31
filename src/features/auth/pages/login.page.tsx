@@ -15,9 +15,11 @@ import { useLoginForm } from '../hooks/use-login-form.hook';
 import { useLogin } from '../hooks/use-login.hook';
 import { authUrls } from '@/features/auth/urls';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export function LoginPage() {
     const { form } = useLoginForm();
+    const router = useRouter();
 
     const { handleSubmit, isPending, isError } = useLogin();
 
@@ -30,7 +32,11 @@ export function LoginPage() {
 
                 <Divider my="lg" />
 
-                <form onSubmit={form.onSubmit(handleSubmit(() => {}))}>
+                <form
+                    onSubmit={form.onSubmit(
+                        handleSubmit(() => router.push('/')),
+                    )}
+                >
                     <Stack>
                         <TextInput
                             required

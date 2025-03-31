@@ -6,6 +6,4 @@ export async function refreshSession() {
     if (!response.ok) {
         throw response;
     }
-
-    return response.json();
 }

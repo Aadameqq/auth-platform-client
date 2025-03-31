@@ -5,42 +5,34 @@ import { Session } from '@/features/auth/domain/session.domain';
 import { refreshSession } from '@/features/auth/api/refresh-session.api';
 
 export function useSession() {
-    const [session, setSession] = useState<Session | false>(false);
+    const [session, setSession] = useState<Session>(Session.Empty);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        async function refresh() {
+        async function checkSession() {
             try {
-                const newToken = await refreshSession();
+                const token = getCookie('access_token');
+                let payload = token && getPayloadIfValid(token);
 
-                const payload = getPayloadIfValid(newToken.accessToken);
+                if (!payload) {
+                    await refreshSession();
+                    const newToken = getCookie('access_token');
+                    payload = newToken && getPayloadIfValid(newToken);
+                }
 
-                setIsLoading(false);
-                setSession(payload);
+                if (payload) {
+                    setSession(payload);
+                }
             } catch {
+            } finally {
                 setIsLoading(false);
             }
         }
 
-        const token = getCookie('access_token');
-
-        if (!token) {
-            setIsLoading(false);
-            return;
-        }
-
-        const payload = getPayloadIfValid(token);
-
-        if (!payload) {
-            refresh();
-            return;
-        }
-
-        setIsLoading(true);
-        setSession(payload);
+        checkSession();
     }, []);
 
-    const isAuthenticated = useMemo(() => !!session, [session]);
+    const isAuthenticated = useMemo(() => session !== Session.Empty, [session]);
 
     return { isLoading, isAuthenticated, session };
 }

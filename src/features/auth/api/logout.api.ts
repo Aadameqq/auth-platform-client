@@ -14,6 +14,4 @@ export const logOut = async (input: LogOutInput) => {
     if (!response.ok) {
         throw response;
     }
-
-    return response.json();
 };

@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         secure: true,
         sameSite: 'strict',
     });
-    return new NextResponse('', { status: 200 });
+    return NextResponse.json({});
 }
 
 export async function DELETE(request: Request) {
@@ -57,7 +57,7 @@ export async function DELETE(request: Request) {
     cookiesStore.delete(ACCESS_TOKEN_COOKIE_KEY);
     cookiesStore.delete(REFRESH_TOKEN_COOKIE_KEY);
 
-    return new NextResponse('', { status: 200 });
+    return NextResponse.json({});
 }
 
 export async function PUT(request: Request) {
@@ -90,5 +90,5 @@ export async function PUT(request: Request) {
         sameSite: 'strict',
     });
 
-    return NextResponse.json({ accessToken });
+    return NextResponse.json({});
 }
