@@ -5,13 +5,17 @@ export type RegisterInput = {
 };
 
 export const register = async (input: RegisterInput) => {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "accounts", {
-        method: "POST",
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + 'accounts', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(input),
     });
+
+    if (!response.ok) {
+        throw response;
+    }
 
     return response.json();
 };

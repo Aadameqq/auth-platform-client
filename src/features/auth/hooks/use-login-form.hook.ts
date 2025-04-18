@@ -2,16 +2,18 @@ import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 
 export type FormInput = {
-    code: string;
+    email: string;
+    password: string;
 };
 
 const validation = z.object({
-    code: z.string(),
+    email: z.string(),
+    password: z.string(),
 });
 
-export function useActivateAccountForm() {
+export function useLoginForm() {
     const form = useForm<FormInput>({
-        initialValues: { code: '' },
+        initialValues: { email: '', password: '' },
         validate: zodResolver(validation),
     });
 

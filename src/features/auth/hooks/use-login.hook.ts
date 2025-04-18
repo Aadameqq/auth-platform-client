@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { FormInput } from './use-register-form.hook';
-import { register } from '../api/register.api';
+import { FormInput } from '@/features/auth/hooks/use-login-form.hook';
+import { login } from '@/features/auth/api/login.api';
 
-export function useRegister() {
+export function useLogin() {
     const { mutateAsync, isPending, isError } = useMutation({
-        mutationKey: ['register'],
+        mutationKey: ['login'],
         async mutationFn(data: FormInput) {
-            return await register(data);
+            await login(data);
         },
     });
 
