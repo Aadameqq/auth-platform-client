@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     return NextResponse.json({});
 }
 
-export async function DELETE(request: Request) {
+export async function DELETE() {
     const cookiesStore = await cookies();
     const accessToken = cookiesStore.get(ACCESS_TOKEN_COOKIE_KEY);
 
@@ -60,7 +60,7 @@ export async function DELETE(request: Request) {
     return NextResponse.json({});
 }
 
-export async function PUT(request: Request) {
+export async function PUT() {
     const cookiesStore = await cookies();
     const oldRefreshToken = cookiesStore.get(REFRESH_TOKEN_COOKIE_KEY);
 
