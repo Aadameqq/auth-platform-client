@@ -1,0 +1,4 @@
+export enum CustomOauthError {
+    EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS',
+    EMAIL_NOT_VERIFIED = 'EMAIL_NOT_VERIFIED',
+}

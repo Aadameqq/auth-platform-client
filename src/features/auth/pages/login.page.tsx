@@ -15,6 +15,7 @@ import { useLoginForm } from '../hooks/use-login-form.hook';
 import { useLogin } from '../hooks/use-login.hook';
 import { authUrls } from '@/features/auth/urls';
 import Link from 'next/link';
+import { OAuthButtons } from '@/features/auth/components/o-auth-buttons.component';
 
 export function LoginPage() {
     const { form } = useLoginForm();
@@ -80,6 +81,7 @@ export function LoginPage() {
                             Log In
                         </Button>
                     </Group>
+                    <OAuthButtons />
                 </form>
             </Paper>
         </Container>
