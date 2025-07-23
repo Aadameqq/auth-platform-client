@@ -19,6 +19,7 @@ import { useRegister } from '../hooks/use-register.hook';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { authUrls } from '@/features/auth/urls';
+import { OAuthButtons } from '@/features/auth/components/o-auth-buttons.component';
 
 export function RegisterPage() {
     const { form } = useRegisterForm();
@@ -103,6 +104,7 @@ export function RegisterPage() {
                         </Button>
                     </Group>
                 </form>
+                <OAuthButtons />
             </Paper>
         </Container>
     );

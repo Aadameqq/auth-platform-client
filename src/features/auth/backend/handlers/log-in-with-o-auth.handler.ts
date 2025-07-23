@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
-import { OAuthErrorCode } from '@/features/auth/enums/o-auth-error-code.enum';
 import { STATE_ID_COOKIE_KEY } from '@/features/auth/constants/o-auth-cookies.constants';
 import { createAuthCookies } from '../helpers/create-auth-cookies.helper';
+import { authUrls } from '@/features/auth/urls';
 
 export const handleLogInWithOAuth = async (request: NextRequest) => {
     const url = new URL(request.url);
@@ -11,9 +11,7 @@ export const handleLogInWithOAuth = async (request: NextRequest) => {
     const state = url.searchParams.get('state');
 
     if (!code || !state) {
-        return redirect(
-            '/o-auth/error?errorCode=' + OAuthErrorCode.MISSING_PARAMS,
-        );
+        return redirect(authUrls.oAuthError);
     }
 
     const cookiesStore = await cookies();
@@ -37,7 +35,7 @@ export const handleLogInWithOAuth = async (request: NextRequest) => {
     );
 
     if (!response.ok) {
-        return redirect('/o-auth/error?errorCode='); // TODO:
+        return redirect(authUrls.oAuthError);
     }
 
     const { accessToken, refreshToken } = await response.json();

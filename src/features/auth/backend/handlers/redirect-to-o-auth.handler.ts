@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { STATE_ID_COOKIE_KEY } from '@/features/auth/constants/o-auth-cookies.constants';
+import { redirect } from 'next/navigation';
+import { authUrls } from '@/features/auth/urls';
 
 export const handleRedirectToOAuth = async (request: NextRequest) => {
     const url = new URL(request.url);
     const provider = url.searchParams.get('provider');
 
     if (!provider) {
-        return NextResponse.json(
-            { message: "Missing query parameter 'provider'" },
-            { status: 400 },
-        );
+        return redirect(authUrls.oAuthError);
     }
     const response = await fetch(
         process.env.NEXT_PUBLIC_API_URL + `oauth/${provider}/url`,
@@ -20,7 +19,7 @@ export const handleRedirectToOAuth = async (request: NextRequest) => {
     );
 
     if (!response.ok) {
-        return NextResponse.json(await response.json(), { status: 404 });
+        return redirect(authUrls.oAuthError);
     }
 
     const { url: oAuthUrl, stateId } = await response.json();
@@ -29,7 +28,7 @@ export const handleRedirectToOAuth = async (request: NextRequest) => {
 
     cookiesStore.set(STATE_ID_COOKIE_KEY, stateId, {
         sameSite: 'strict',
-        secure: true, // TODO: age
+        secure: true,
     });
 
     return NextResponse.redirect(oAuthUrl, { status: 302 });

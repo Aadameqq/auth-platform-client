@@ -1,30 +1,24 @@
 import { Button, Container, Group, Stack, Text, Title } from '@mantine/core';
-import { OAuthErrorCode } from '@/features/auth/enums/o-auth-error-code.enum';
+import Link from 'next/link';
+import { authUrls } from '@/features/auth/urls';
 
-const messages: Record<OAuthErrorCode, string> = {
-    [OAuthErrorCode.INVALID_PROVIDER]: 'Given provider does not exist',
-    [OAuthErrorCode.MISSING_PARAMS]: '',
-};
-
-export async function OAuthErrorPage({
-    searchParams,
-}: {
-    searchParams: Record<string, string>;
-}) {
-    const { errorCode } = await searchParams;
-
+export async function OAuthErrorPage() {
     return (
         <Container size="sm" px="md" pt="xl" pb="xl" mx="auto">
             <Stack align="center" gap="xl">
-                <Title>{messages[errorCode as OAuthErrorCode]}</Title>
+                <Title ta="center">
+                    We couldn’t complete the OAuth sign‑in. Please try again
+                </Title>
                 <Text c="dimmed" size="lg" ta="center">
                     If you believe this is an error, please contact the
                     administrator.
                 </Text>
                 <Group justify="center">
-                    <Button variant="subtle" size="md">
-                        Take me back to home page
-                    </Button>
+                    <Link href={authUrls.login}>
+                        <Button variant="subtle" size="md">
+                            Take me back to log in page
+                        </Button>
+                    </Link>
                 </Group>
             </Stack>
         </Container>
