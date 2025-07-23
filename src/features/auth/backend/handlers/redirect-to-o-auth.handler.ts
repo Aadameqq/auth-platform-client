@@ -9,7 +9,7 @@ export const handleRedirectToOAuth = async (request: NextRequest) => {
     const provider = url.searchParams.get('provider');
 
     if (!provider) {
-        return redirect(authUrls.oAuthError);
+        return redirect(authUrls.oAuthError());
     }
     const response = await fetch(
         process.env.NEXT_PUBLIC_API_URL + `oauth/${provider}/url`,
@@ -19,7 +19,7 @@ export const handleRedirectToOAuth = async (request: NextRequest) => {
     );
 
     if (!response.ok) {
-        return redirect(authUrls.oAuthError);
+        return redirect(authUrls.oAuthError());
     }
 
     const { url: oAuthUrl, stateId } = await response.json();

@@ -4,6 +4,7 @@ import { NextRequest } from 'next/server';
 import { STATE_ID_COOKIE_KEY } from '@/features/auth/constants/o-auth-cookies.constants';
 import { createAuthCookies } from '../helpers/create-auth-cookies.helper';
 import { authUrls } from '@/features/auth/urls';
+import { CustomOauthError } from '@/features/auth/enums/custom-oauth-error';
 
 export const handleLogInWithOAuth = async (request: NextRequest) => {
     const url = new URL(request.url);
@@ -11,7 +12,7 @@ export const handleLogInWithOAuth = async (request: NextRequest) => {
     const state = url.searchParams.get('state');
 
     if (!code || !state) {
-        return redirect(authUrls.oAuthError);
+        return redirect(authUrls.oAuthError());
     }
 
     const cookiesStore = await cookies();
@@ -35,7 +36,15 @@ export const handleLogInWithOAuth = async (request: NextRequest) => {
     );
 
     if (!response.ok) {
-        return redirect(authUrls.oAuthError);
+        let code: CustomOauthError | undefined;
+        if (response.status === 409) {
+            code = CustomOauthError.EMAIL_ALREADY_EXISTS;
+        }
+        if (response.status === 422) {
+            code = CustomOauthError.EMAIL_NOT_VERIFIED;
+        }
+
+        return redirect(authUrls.oAuthError(code));
     }
 
     const { accessToken, refreshToken } = await response.json();
